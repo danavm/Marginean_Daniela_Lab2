@@ -4,10 +4,11 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Marginean_Daniela_Lab2"
+        xmlns:CustomCommands="clr-namespace:Marginean_Daniela_Lab2.CustomCommands"
         mc:Ignorable="d"
         Title="Virtual Doughnuts Factory" Height="450" Width="800" ResizeMode="NoResize" Background="{DynamicResource {x:Static SystemColors.ActiveCaptionBrushKey}}"
         Loaded="frmMain_Loaded">
-    <Grid>
+    <Grid MenuItem.Click="FilledItemsShow_Click">
         <Menu x:Name="mnuMain" HorizontalAlignment="Left" Height="21" VerticalAlignment="Top" Width="131" Margin="0,6,0,0">
             <MenuItem Header="File">
                 <MenuItem Header="Exit" Click="exitToolStripMenuItem_Click"/>
@@ -16,11 +17,16 @@
                 <MenuItem Header="Make">
                     <MenuItem Header="Raised">
                         <MenuItem x:Name="glazedToolStripMenuItem" Header="Glazed" Click="glazedToolStripMenuItem_Click" IsCheckable="True"/>
-                        <MenuItem x:Name="sugarToolStripMenuItem" Header="Sugar" IsCheckable="True" Click="sugarToolStripMenuItem_Click"/>
+                        <MenuItem x:Name="sugarToolStripMenuItem" Header="Sugar" Click="sugarToolStripMenuItem_Click" IsCheckable="True" />
                     </MenuItem>
-                    <MenuItem Header="Filled"/>
+                    <MenuItem Header="Filled" Click="FilledItems_Click">
+                        <MenuItem x:Name="lemonFilledMenuItem" Header="Lemon" IsCheckable="True" />
+                        <MenuItem x:Name="chocolateFilledMenuItem" Header="Chocolate" IsCheckable="True" />
+                        <MenuItem x:Name="vanillaFilledMenuItem" Header="Vanilla" IsCheckable="True" />
+                    </MenuItem>
                 </MenuItem>
-                <MenuItem x:Name="mnuStop" Header="Stop" Click="stopToolStripMenuItem_Click"/>
+                <MenuItem x:Name="mnuStop" Header="Stop" Click="stopToolStripMenuItem_Click" InputGestureText="Ctrl+S" Command="CustomCommands:StopCommand.Launch"/>
+                <MenuItem Header="Inventory" Command="ApplicationCommands.Print"></MenuItem>
             </MenuItem>
         </Menu>
         <Label x:Name="lblTitle" Content="Doughnuts - Bake &amp; Sale" FontSize="24" FontWeight="Bold" Margin="0,0,0,370" HorizontalAlignment="Center"/>
@@ -51,11 +57,11 @@
                 <TextBox x:Name="txtQuantity" Text="0" TextWrapping="Wrap" Width="30" Canvas.Left="83" Canvas.Top="7"/>
                 <TextBox x:Name="txtPrice" Text="0" TextWrapping="Wrap" Width="126" Canvas.Left="419" Canvas.Top="7" IsReadOnly="True"/>
                 <TextBox x:Name="txtTotal" Text="0" TextWrapping="Wrap" Width="165" Canvas.Left="380" Canvas.Top="112" IsReadOnly="True"/>
-                <ComboBox x:Name="cmbType" Canvas.Left="184" Canvas.Top="5" Width="153"/>
-                <ListBox Height="71" Width="523" Canvas.Left="22" Canvas.Top="33"/>
-                <Button x:Name="btnAddToSale" Content="Add To Sale" Canvas.Left="591" Canvas.Top="33" Width="81" FontWeight="Normal"/>
-                <Button x:Name="btnRemoveItem" Content="Remove Item" Canvas.Left="591" Canvas.Top="67" Width="81" FontWeight="Normal"/>
-                <Button x:Name="btnCheckOut" Content="Check Out" Canvas.Left="591" Canvas.Top="110" Width="81" FontWeight="Bold"/>
+                <ComboBox x:Name="cmbType" SelectionChanged="cmbType_SelectionChanged" Canvas.Left="184" Canvas.Top="5" Width="153"/>
+                <ListBox x:Name="lstSale" Height="71" Width="523" Canvas.Left="22" Canvas.Top="33"/>
+                <Button x:Name="btnAddToSale" Click="btnAdd_Click" Content="Add To Sale" Canvas.Left="591" Canvas.Top="33" Width="81" FontWeight="Normal"/>
+                <Button x:Name="btnRemoveItem" Click=" btnRemoveItem_Click" Content="Remove Item" Canvas.Left="591" Canvas.Top="67" Width="81" FontWeight="Normal"/>
+                <Button x:Name="btnCheckOut" Click=" btnCheckOut_Click" Content="Check Out" Canvas.Left="591" Canvas.Top="110" Width="81" FontWeight="Bold"/>
             </Canvas>
         </GroupBox>
     </Grid>
